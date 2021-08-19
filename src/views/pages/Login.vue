@@ -10,12 +10,14 @@
                   <h1>Login</h1>
                   <p class="text-muted">Sign In to your account</p>
                   <CInput
+                    v-model="user.username"
                     placeholder="Username"
                     autocomplete="username email"
                   >
                     <template #prepend-content><CIcon name="cil-user"/></template>
                   </CInput>
                   <CInput
+                    v-model="user.password"
                     placeholder="Password"
                     type="password"
                     autocomplete="curent-password"
@@ -24,12 +26,17 @@
                   </CInput>
                   <CRow>
                     <CCol col="6" class="text-left">
-                      <CButton color="primary" class="px-4" v-bind="submit">Login</CButton>
+                      <CButton color="primary" class="px-4" @click="submit()">Login</CButton>
                     </CCol>
                     <CCol col="6" class="text-right">
                       <CButton color="link" class="px-0">Forgot password?</CButton>
                       <CButton color="link" class="d-lg-none">Register now!</CButton>
                     </CCol>
+                  </CRow>
+                  <CRow style="justify-content: center;">
+                    <transition name="fade">
+                      <p v-if="show" style="text-align: center;">{{msg}}</p>
+                    </transition>
                   </CRow>
                 </CForm>
               </CCardBody>
@@ -60,11 +67,46 @@
 </template>
 
 <script>
+import axios from "axios"
+import storageUser from './storageUser.js'
 export default {
   name: 'Login',
+  data: function() {
+    return{
+      user: {
+        username: null,
+        password: null,
+      },
+      message: {
+        loading: "Loading...",
+        success: "Success",
+        failed: "Failed!"
+      },
+      msg: "",
+      show: false
+    }
+  },
   methods: {
     submit(){
-      console.log('submit');
+      const formData = JSON.stringify(this.user)
+      let loggIN = false;
+      const {username, password} = this.user;
+
+      this.show = !this.show;
+      storageUser.map((items, index) => {
+        if(username === items.username && password === items.password){
+          loggIN = true;
+        }
+      });
+      if(loggIN){
+        console.log("You are auth");
+        this.msg = this.message.success;
+        this.$router.push({path: '/dashboard'})
+      }else{
+        this.msg = this.message.failed;
+        console.log("Invalid login or password");
+      }
+      console.log(formData);
     }
   }
 }
