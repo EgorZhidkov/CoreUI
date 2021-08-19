@@ -1,5 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from '../store'
+
+
+
+import guest from './middleware/guest'
+import auth from './middleware/auth'
+import middlewarePipeline from './middlewarePipeline'
 
 // Containers
 const TheContainer = () =>
@@ -108,7 +115,12 @@ function configRoutes() {
     return [{
             path: '/pages/login',
             name: 'Login',
-            component: Login
+            component: Login,
+            // meta: {
+            //     middleware: [
+            //         guest
+            //     ]
+            // }
         },
         {
             path: '/',
@@ -118,7 +130,12 @@ function configRoutes() {
             children: [{
                     path: 'dashboard',
                     name: 'Dashboard',
-                    component: Dashboard
+                    component: Dashboard,
+                    meta: {
+                        middleware: [
+                            auth
+                        ]
+                    },
                 },
                 {
                     path: 'theme',
@@ -373,3 +390,20 @@ function configRoutes() {
         }
     ]
 }
+
+router.beforeEach((to, from, next) => {
+    if (!to.meta.middleware) {
+        return next()
+    }
+    const middleware = to.meta.middleware
+    const context = {
+        to,
+        from,
+        next,
+        store
+    }
+    return middleware[0]({
+        ...context,
+        next: middlewarePipeline(context, middleware, 1)
+    })
+})
