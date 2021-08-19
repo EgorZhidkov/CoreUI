@@ -3,6 +3,13 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 const state = {
+    user: {
+        username: '',
+        password: '',
+        name: '',
+        role: '',
+        loggedIn: false,
+    },
     sidebarShow: 'responsive',
     sidebarMinimize: false
 }
@@ -18,20 +25,29 @@ const mutations = {
     },
     set(state, [variable, value]) {
         state[variable] = value
+    },
+    setUser(state, payload) {
+        state.user.username = payload.username;
+        state.user.password = payload.password;
+        state.user.name = payload.name;
+        state.user.role = payload.role;
+        state.user.loggedIn = true;
+    }
+}
+
+const getters = {
+    getUserInfo(state) {
+        let userObjJson = JSON.stringify(state.user);
+        return state.user;
+        console.log("hehe", userObjJson);
+    },
+    auth(state) {
+        return state.user
     }
 }
 
 export default new Vuex.Store({
-    state: {
-        user: {
-            loggedIn: false,
-            isSubscribed: false
-        }
-    },
-    getters: {
-        auth(state) {
-            return state.user
-        }
-    },
-    mutations
+    state,
+    mutations,
+    getters
 })

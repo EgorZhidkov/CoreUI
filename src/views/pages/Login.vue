@@ -10,14 +10,14 @@
                   <h1>Login</h1>
                   <p class="text-muted">Sign In to your account</p>
                   <CInput
-                    v-model="user.username"
+                    v-model="user.inputUsername"
                     placeholder="Username"
                     autocomplete="username email"
                   >
                     <template #prepend-content><CIcon name="cil-user"/></template>
                   </CInput>
                   <CInput
-                    v-model="user.password"
+                    v-model="user.inputPassword"
                     placeholder="Password"
                     type="password"
                     autocomplete="curent-password"
@@ -74,8 +74,8 @@ export default {
   data: function() {
     return{
       user: {
-        username: null,
-        password: null,
+        inputUsername: null,
+        inputPassword: null,
       },
       message: {
         loading: "Loading...",
@@ -88,25 +88,30 @@ export default {
   },
   methods: {
     submit(){
+      console.log(this.$store.state)
+      console.log("objInput", this.user)
       const formData = JSON.stringify(this.user)
       let loggIN = false;
-      const {username, password} = this.user;
+      const {inputUsername, inputPassword} = this.user;
 
       this.show = !this.show;
-      storageUser.map((items, index) => {
-        if(username === items.username && password === items.password){
+      storageUser.map((oneUserInfo) => {
+        const {username, password, name, role} = oneUserInfo;
+        if(inputUsername === username && inputPassword === password){
           loggIN = true;
+          console.log('store', oneUserInfo)
+          this.$store.commit('setUser', oneUserInfo);
         }
       });
       if(loggIN){
-        console.log("You are auth");
         this.msg = this.message.success;
+        this.$store.getters.setUserInfo;
+        console.log(this.$store.state)
         this.$router.push({path: '/dashboard'})
       }else{
         this.msg = this.message.failed;
-        console.log("Invalid login or password");
       }
-      console.log(formData);
+      console.log('asd',formData);
     }
   }
 }
