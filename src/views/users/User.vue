@@ -26,7 +26,7 @@
 import usersData from './UsersData'
 export default {
   name: 'User',
-  beforeRouteEnter(to, from, next) {
+  beforeRouteEnter(to, from, next) { // Хз что это
     next(vm => {
       vm.usersOpened = from.fullPath.includes('users')
     })
@@ -43,21 +43,21 @@ export default {
         { key: 'value', label: '', _style: 'width:150px;' }
       ]
     },
-    userData () {
-      const id = this.$route.params.id
-      const user = usersData.find((user, index) => index + 1 == id)
-      const userDetails = user ? Object.entries(user) : [['id', 'Not found']]
-      return userDetails.map(([key, value]) => { return { key, value } })
+    userData () { // Возвращает всю информацию о конкретном пользователе по ID в формате { key, value } 
+      const id = this.$route.params.id // Id нужного пользователя
+      const user = usersData.find((user, index) => index + 1 == id) // User - переменная в которйо хранится определенный пользователь по его ID
+      const userDetails = user ? Object.entries(user) : [['id', 'Not found']] //Object.entries() метод возвращает массив собственных перечисляемых свойств указанного объекта в формате [key, value]
+      return userDetails.map(([key, value]) => { return { key, value } }) 
     },
-    visibleData () {
+    visibleData () { // Возвращает все данные о пользователе в формате {"key": "value"}, кроме username
       return this.userData.filter(param => param.key !== 'username')
     },
-    username () {
+    username () { // Возвращает только username в формате value
       return this.userData.filter(param => param.key === 'username')[0].value
     }
   },
   methods: {
-    goBack() {
+    goBack() { // Возврат назад ко всем пользователям
       this.usersOpened ? this.$router.go(-1) : this.$router.push({path: '/users'})
     }
   }

@@ -24,7 +24,7 @@
                   </CInput>
                   <CRow>
                     <CCol col="6" class="text-left">
-                      <CButton color="primary" class="px-4">Login</CButton>
+                      <CButton color="primary" class="px-4" v-bind="submit">Login</CButton>
                     </CCol>
                     <CCol col="6" class="text-right">
                       <CButton color="link" class="px-0">Forgot password?</CButton>
@@ -61,6 +61,11 @@
 
 <script>
 export default {
-  name: 'Login'
+  name: 'Login',
+  methods: {
+    submit(){
+      console.log('submit');
+    }
+  }
 }
 </script>
