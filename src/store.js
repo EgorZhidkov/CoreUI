@@ -45,6 +45,13 @@ const getters = {
     auth(state) {
         console.log('asd', state.user.loggedIn)
         return state.user.loggedIn
+    },
+    getterRole(state) {
+        if (state.user.role === "admin") {
+            return true
+        } else {
+            return false
+        }
     }
 }
 
