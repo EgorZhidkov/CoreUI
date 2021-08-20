@@ -89,7 +89,7 @@ export default {
   methods: {
     submit(){
       console.log(this.$store.state)
-      console.log("objInput", this.user)
+      console.log("objInput", this.$store)
       const formData = JSON.stringify(this.user)
       let loggIN = false;
       const {inputUsername, inputPassword} = this.user;

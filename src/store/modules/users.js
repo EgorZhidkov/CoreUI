@@ -1,8 +1,3 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import auth from './router/middleware/auth'
-Vue.use(Vuex)
-
 const state = {
     user: {
         username: '',
@@ -47,9 +42,3 @@ const getters = {
         return state.user.loggedIn
     }
 }
-
-export default new Vuex.Store({
-    state,
-    mutations,
-    getters
-})
