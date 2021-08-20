@@ -20,7 +20,7 @@
         </CHeaderNavLink>
       </CHeaderNavItem>
       <CHeaderNavItem class="px-3">
-        <CHeaderNavLink to="/users" exact>
+        <CHeaderNavLink v-if="this.$store.getters.getterRole" to="/users" exact>
           Users
         </CHeaderNavLink>
       </CHeaderNavItem>
