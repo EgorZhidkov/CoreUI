@@ -1,10 +1,25 @@
-export default function auth({ next, store, nextMiddleware }) {
-    if (!store.getters.auth.loggedIn) {
-        console.log("auth", store.getters.auth.loggedIn)
+const auth = function({ next, store, nextMiddleware }) {
+    if (!store.getters.auth) {
+        console.log("auth", store.getters.auth)
         return next({
             name: 'Login'
         })
     }
-    console.log("auth", store.getters.auth.loggedIn)
+
     return nextMiddleware()
+}
+
+const test = function(store) {
+    if (!store.getters.auth) {
+        console.log("auth", store.getters.auth)
+        return next({
+            name: 'Login'
+        })
+    }
+    return nextMiddleware()
+}
+
+export {
+    auth,
+    test
 }

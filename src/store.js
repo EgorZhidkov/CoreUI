@@ -32,13 +32,7 @@ const mutations = {
         state.user.password = payload.password;
         state.user.name = payload.name;
         state.user.role = payload.role;
-        try {
-            state.user.loggedIn = payload.loggedIn;
-        } catch (error) {
-            state.user.loggedIn = true;
-        }
-
-
+        state.user.loggedIn = true;
     }
 }
 
@@ -49,6 +43,7 @@ const getters = {
         return state.user
     },
     auth(state) {
+        console.log('asd', state.user.loggedIn)
         return state.user.loggedIn
     }
 }

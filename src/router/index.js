@@ -5,7 +5,8 @@ import store from '../store'
 
 
 import guest from './middleware/guest'
-import auth from './middleware/auth'
+import { auth } from './middleware/auth'
+import { test } from './middleware/auth'
 import middlewarePipeline from './middlewarePipeline'
 
 // Containers
@@ -104,7 +105,7 @@ const User = () =>
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
     mode: 'hash', // https://router.vuejs.org/api/#mode
     linkActiveClass: 'active',
     scrollBehavior: () => ({ y: 0 }),
@@ -113,18 +114,13 @@ export default new Router({
 
 function configRoutes() {
     return [{
-            path: '/pages/login',
-            name: 'Login',
+            path: '/',
+            redirect: '/pages/login',
+            name: 'Home',
             component: Login,
-            // meta: {
-            //     middleware: [
-            //         guest
-            //     ]
-            // }
         },
         {
             path: '/',
-            redirect: '/pages/login',
             name: 'Home',
             component: TheContainer,
             children: [{
@@ -141,6 +137,11 @@ function configRoutes() {
                     path: 'theme',
                     redirect: '/theme/colors',
                     name: 'Theme',
+                    meta: {
+                        middleware: [
+                            auth
+                        ]
+                    },
                     component: {
                         render(c) { return c('router-view') }
                     },
@@ -390,7 +391,6 @@ function configRoutes() {
         }
     ]
 }
-const router = new Router()
 router.beforeEach((to, from, next) => {
     if (!to.meta.middleware) {
         return next()
@@ -407,3 +407,4 @@ router.beforeEach((to, from, next) => {
         nextMiddleware: middlewarePipeline(context, middleware, 1)
     })
 })
+export default router;
