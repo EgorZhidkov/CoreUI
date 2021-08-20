@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import auth from './router/middleware/auth'
 Vue.use(Vuex)
 
 const state = {
@@ -8,7 +9,7 @@ const state = {
         password: '',
         name: '',
         role: '',
-        loggedIn: false,
+        loggedIn: false
     },
     sidebarShow: 'responsive',
     sidebarMinimize: false
@@ -31,18 +32,24 @@ const mutations = {
         state.user.password = payload.password;
         state.user.name = payload.name;
         state.user.role = payload.role;
-        state.user.loggedIn = true;
+        try {
+            state.user.loggedIn = payload.loggedIn;
+        } catch (error) {
+            state.user.loggedIn = true;
+        }
+
+
     }
 }
 
 const getters = {
-    getUserInfo(state) {
+    getUserInfo: (state) => {
         let userObjJson = JSON.stringify(state.user);
-        return state.user;
-        console.log("hehe", userObjJson);
+        console.log("hehe", state.user);
+        return state.user
     },
     auth(state) {
-        return state.user
+        return state.user.loggedIn
     }
 }
 

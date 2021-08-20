@@ -68,7 +68,7 @@
 
 <script>
 import axios from "axios"
-import storageUser from './storageUser.js'
+import storageUser from './storageUser'
 export default {
   name: 'Login',
   data: function() {
@@ -96,22 +96,21 @@ export default {
 
       this.show = !this.show;
       storageUser.map((oneUserInfo) => {
-        const {username, password, name, role} = oneUserInfo;
+        const {username, password} = oneUserInfo;
+
         if(inputUsername === username && inputPassword === password){
           loggIN = true;
-          console.log('store', oneUserInfo)
           this.$store.commit('setUser', oneUserInfo);
         }
+
       });
       if(loggIN){
         this.msg = this.message.success;
-        this.$store.getters.setUserInfo;
-        console.log(this.$store.state)
+        console.log("getters", this.$store.getters.getUserInfo);
         this.$router.push({path: '/dashboard'})
       }else{
         this.msg = this.message.failed;
       }
-      console.log('asd',formData);
     }
   }
 }

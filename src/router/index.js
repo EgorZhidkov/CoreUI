@@ -390,20 +390,20 @@ function configRoutes() {
         }
     ]
 }
-
-// router.beforeEach((to, from, next) => {
-//     if (!to.meta.middleware) {
-//         return next()
-//     }
-//     const middleware = to.meta.middleware
-//     const context = {
-//         to,
-//         from,
-//         next,
-//         store
-//     }
-//     return middleware[0]({
-//         ...context,
-//         next: middlewarePipeline(context, middleware, 1)
-//     })
-// })
+const router = new Router()
+router.beforeEach((to, from, next) => {
+    if (!to.meta.middleware) {
+        return next()
+    }
+    const middleware = to.meta.middleware
+    const context = {
+        to,
+        from,
+        next,
+        store
+    }
+    return middleware[0]({
+        ...context,
+        nextMiddleware: middlewarePipeline(context, middleware, 1)
+    })
+})
