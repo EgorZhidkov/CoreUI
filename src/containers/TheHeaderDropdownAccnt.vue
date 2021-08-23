@@ -59,14 +59,14 @@
     <CDropdownItem>
       <CIcon name="cil-shield-alt" /> Lock Account
     </CDropdownItem>
-    <CDropdownItem @click="logout()">
+    <CDropdownItem @click="logoutHandle()">
       <CIcon name="cil-lock-locked" /> Logout
     </CDropdownItem>
   </CDropdown>
 </template>
 
 <script>
-import {mapMutations} from 'vuex'
+import {mapActions, mapMutations} from 'vuex'
 export default {
   name: 'TheHeaderDropdownAccnt',
   data () {
@@ -75,9 +75,9 @@ export default {
     }
   }, 
   methods: {
-    ...mapMutations('users',['logoutUser']),
-    logout(){
-      this.logoutUser();
+    ...mapActions('users',['logout']),
+    logoutHandle(){
+      this.logout();
       this.$router.push({path: '/pages/login'})
     }
   }

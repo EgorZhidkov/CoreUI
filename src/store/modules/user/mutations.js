@@ -22,7 +22,6 @@ export const mutations = {
         state.user.name = '';
         state.user.email = '';
         state.user.role = '';
-        localStorage.clear();
     }
 
 }

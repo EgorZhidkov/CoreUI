@@ -8,12 +8,14 @@ import VuexPersistence from 'vuex-persist';
 
 Vue.use(Vuex)
 
-
+const vuexLocal = new VuexPersistence({
+    storage: window.sessionStorage
+})
 
 const store = new Vuex.Store({
     modules: {
         users
     },
-    plugins: [createPersistedState()]
+    plugins: [vuexLocal.plugin]
 });
 export default store;
