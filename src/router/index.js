@@ -4,9 +4,8 @@ import store from '../store/store'
 
 
 
-import guest from './middleware/guest'
+
 import { auth } from './middleware/auth'
-import { test } from './middleware/auth'
 import middlewarePipeline from './middlewarePipeline'
 
 // Containers

@@ -66,25 +66,18 @@
 </template>
 
 <script>
+import {mapMutations} from 'vuex'
 export default {
   name: 'TheHeaderDropdownAccnt',
   data () {
     return { 
       itemsCount: 42,
-      emptyObj:{
-        username: '',
-        password: '', 
-        name: '',
-        role: '', 
-        loggedIn: false
-      }
     }
   }, 
   methods: {
+    ...mapMutations('users',['logoutUser']),
     logout(){
-      console.log('test')
-      this.$store.commit('setUser', this.emptyObj);
-      console.log("logout info", this.$store.getters.getUserInfo);
+      this.logoutUser();
       this.$router.push({path: '/pages/login'})
     }
   }

@@ -1,69 +1,19 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createVuexCache from 'vuex-cache';
 import createPersistedState from 'vuex-persistedstate'
-import users from './modules/users'
+import { users } from './modules/user/index'
+import VuexPersistence from 'vuex-persist';
+
+
 Vue.use(Vuex)
 
 
 
 const store = new Vuex.Store({
     modules: {
-        users,
+        users
     },
     plugins: [createPersistedState()]
 });
 export default store;
-// const state = {
-//     user: {
-//         username: '',
-//         password: '',
-//         name: '',
-//         role: '',
-//         loggedIn: false
-//     },
-//     sidebarShow: 'responsive',
-//     sidebarMinimize: false
-// }
-
-// const mutations = {
-//     toggleSidebarDesktop(state) {
-//         const sidebarOpened = [true, 'responsive'].includes(state.sidebarShow)
-//         state.sidebarShow = sidebarOpened ? false : 'responsive'
-//     },
-//     toggleSidebarMobile(state) {
-//         const sidebarClosed = [false, 'responsive'].includes(state.sidebarShow)
-//         state.sidebarShow = sidebarClosed ? true : 'responsive'
-//     },
-//     set(state, [variable, value]) {
-//         state[variable] = value
-//     },
-//     setUser(state, payload) {
-//         state.user.username = payload.username;
-//         state.user.password = payload.password;
-//         state.user.name = payload.name;
-//         state.user.role = payload.role;
-//         state.user.loggedIn = true;
-//     }
-// }
-
-// const getters = {
-//     getUserInfo: (state) => {
-//         let userObjJson = JSON.stringify(state.user);
-//         console.log("hehe", state.user);
-//         return state.user
-//     },
-//     auth(state) {
-//         console.log('asd', state.user.loggedIn)
-//         return state.user.loggedIn
-//     }
-// }
-
-
-
-
-// export default new Vuex.Store({
-//     state,
-//     mutations,
-//     getters,
-
-// })

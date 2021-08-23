@@ -20,7 +20,7 @@
         </CHeaderNavLink>
       </CHeaderNavItem>
       <CHeaderNavItem class="px-3">
-        <CHeaderNavLink v-if="this.$store.getters.getterRole" to="/users" exact>
+        <CHeaderNavLink v-if="this.getAdminRole" to="/users" exact>
           Users
         </CHeaderNavLink>
       </CHeaderNavItem>
@@ -56,11 +56,14 @@
 
 <script>
 import TheHeaderDropdownAccnt from './TheHeaderDropdownAccnt'
-
+import {mapGetters} from 'vuex';
 export default {
   name: 'TheHeader',
   components: {
     TheHeaderDropdownAccnt
+  },
+  computed:{
+    ...mapGetters('users', ['getAdminRole'])
   }
 }
 </script>

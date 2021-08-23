@@ -67,8 +67,9 @@
 </template>
 
 <script>
-import axios from "axios"
 import storageUser from './storageUser'
+import {mapGetters, mapMutations} from 'vuex'
+
 export default {
   name: 'Login',
   data: function() {
@@ -86,27 +87,29 @@ export default {
       show: false
     }
   },
+  computed: {
+    ...mapGetters('users',['getUserInfo', 'isAuth'])
+  },
   methods: {
+    ...mapMutations('users',['setUserInfo']),
     submit(){
-      console.log(this.$store.state)
-      console.log("objInput", this.$store)
       const formData = JSON.stringify(this.user)
-      let loggIN = false;
       const {inputUsername, inputPassword} = this.user;
-
+      let loggIN = false;
       this.show = !this.show;
+
       storageUser.map((oneUserInfo) => {
         const {username, password} = oneUserInfo;
-
         if(inputUsername === username && inputPassword === password){
           loggIN = true;
-          this.$store.commit('setUser', oneUserInfo);
+          console.log('storuser', oneUserInfo);
+          this.setUserInfo(oneUserInfo);
         }
-
       });
+
       if(loggIN){
+        
         this.msg = this.message.success;
-        console.log("getters", this.$store.getters.getUserInfo);
         this.$router.push({path: '/dashboard'})
       }else{
         this.msg = this.message.failed;
