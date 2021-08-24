@@ -1,0 +1,11 @@
+{
+  "include": ["./src/**/*.ts"],
+  "exclude": ["node_modules"],
+  "compilerOptions": {
+    "module": "system",
+    "moduleResolution": "node",
+    "target": "es5",
+    "sourceMap": true,
+    "allowJs": true
+  }
+}
