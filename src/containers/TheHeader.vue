@@ -10,8 +10,8 @@
       class="ml-3 d-md-down-none"
       @click="this.toggleSidebarDesktop"
     />
-    <CHeaderBrand class="mx-auto d-lg-none" to="/">
-      <CIcon name="logo" height="48" alt="Logo"/>
+    <CHeaderBrand class="mx-auto d-lg-none" @click="logoutHandle()">
+      <CIcon name="logo" height="48" alt="Logo" />
     </CHeaderBrand>
     <CHeaderNav class="d-md-down-none mr-auto">
       <CHeaderNavItem class="px-3">
@@ -56,7 +56,7 @@
 
 <script>
 import TheHeaderDropdownAccnt from './TheHeaderDropdownAccnt'
-import {mapGetters, mapMutations} from 'vuex';
+import {mapGetters, mapMutations, mapActions} from 'vuex';
 export default {
   name: 'TheHeader',
   components: {
@@ -66,7 +66,12 @@ export default {
     ...mapGetters('users', ['getAdminRole'])
   },
   methods:{
-    ...mapMutations('sideBar', ['toggleSidebarDesktop', 'toggleSidebarMobile'])
+    ...mapMutations('sideBar', ['toggleSidebarDesktop', 'toggleSidebarMobile']),
+    ...mapActions('users',['logout']),
+    logoutHandle(){
+      this.logout();
+      this.$router.push({path: '/pages/login'})
+    }
   }
 }
 </script>

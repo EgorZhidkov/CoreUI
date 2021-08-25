@@ -79,7 +79,6 @@ import axios from "axios"
 import Alert from '../alert/alert.vue'
 import {mapActions, mapGetters, mapMutations} from 'vuex'
 import postData from '../../utils/postData'
-import alert from '../alert/alert.vue'
 export default {
   components: { alert },
   name: 'Login',

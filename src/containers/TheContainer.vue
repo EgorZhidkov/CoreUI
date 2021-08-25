@@ -7,7 +7,7 @@
         <main class="c-main">
           <CContainer fluid>
             <transition name="fade" mode="out-in">
-              <router-view :key="$route.path"></router-view>
+              <router-view :key="$route.path">{{$route.path}}</router-view>
             </transition>
           </CContainer>
         </main>
