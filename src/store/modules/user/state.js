@@ -1,10 +1,11 @@
 const state = {
     user: {
-        name: '',
+        full_name: '',
         email: '',
-        role: '',
+        roles: '',
+        id: ''
     },
-    token: '123asdasdcas',
+    access_token: '',
     isAuth: false,
 }
 export default state;

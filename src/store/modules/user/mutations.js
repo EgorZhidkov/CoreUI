@@ -1,16 +1,23 @@
 export const mutations = {
     setUserInfo(state, payload) {
-        state.user.name = payload.name;
+        state.user.full_name = payload.full_name;
         state.user.email = payload.email;
-        state.user.role = payload.role;
-        state.isAuth = true;
-
+        state.user.roles = payload.roles;
+        state.user.id = payload.id;
     },
     logoutUser(state) {
         state.isAuth = false;
-        state.user.name = '';
+        state.user.full_name = '';
         state.user.email = '';
-        state.user.role = '';
+        state.user.roles = '';
+        state.access_token = '';
+        state.user.id = '';
+    },
+    setAccessToken(state, payload) {
+        state.access_token = payload;
+    },
+    setIsAuth(state) {
+        state.isAuth = true
     }
 
 }

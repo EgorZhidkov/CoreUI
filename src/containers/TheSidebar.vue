@@ -3,7 +3,7 @@
     fixed 
     :minimize="minimize"
     :show="show"
-    @update:show="(value) => $store.commit('set', ['sidebarShow', value])"
+    @update:show="(value) => this.set(['sidebarShow', value])"
   >
     <CSidebarBrand class="d-md-down-none" to="/">
       <CIcon 
@@ -25,24 +25,30 @@
     <CRenderFunction flat :content-to-render="$options.nav"/>
     <CSidebarMinimizer
       class="d-md-down-none"
-      @click.native="$store.commit('set', ['sidebarMinimize', !minimize])"
+      @click.native="this.set(['sidebarMinimize', !minimize])"
     />
   </CSidebar>
 </template>
 
 <script>
 import nav from './_nav'
+import {mapState, mapMutations} from "vuex";
 
 export default {
   name: 'TheSidebar',
   nav,
   computed: {
+    ...mapState('sideBar',['sidebarShow', 'sidebarMinimize']),
     show () {
-      return this.$store.state.sidebarShow 
+      return this.sidebarShow 
     },
     minimize () {
-      return this.$store.state.sidebarMinimize 
+      console.log('sidebar', this.sidebarMinimize)
+      return this.sidebarMinimize 
     }
+  },
+  methods:{
+    ...mapMutations('sideBar', ['set'])  
   }
 }
 </script>

@@ -7,11 +7,14 @@ export const getters = {
         return state.isAuth
     },
     getAdminRole(state) {
-        if (state.user.role === "admin") {
-            return true
-        } else {
-            return false
-        }
+        let bool = false;
+        state.user.roles.forEach(item => {
+            console.log(item);
+            if (item === "admin") {
+                bool = true;
+            }
+        });
+        return bool;
     }
 }
 export default getters;
