@@ -5,6 +5,7 @@ const state = {
         roles: {},
         id: ''
     },
+    error: false,
     access_token: '',
     isAuth: false,
 }

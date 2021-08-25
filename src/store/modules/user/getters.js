@@ -22,8 +22,9 @@ export const getters = {
                 return false
             }
         }
-
-
+    },
+    getError(state) {
+        return state.error
     }
 }
 export default getters;

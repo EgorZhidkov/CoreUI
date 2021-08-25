@@ -18,6 +18,9 @@ export const mutations = {
     },
     setIsAuth(state) {
         state.isAuth = true
+    },
+    AuthError(state) {
+        state.error = true;
     }
 
 }

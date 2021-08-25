@@ -1,6 +1,13 @@
 <template>
   <div class="c-app flex-row align-items-center">
     <CContainer>
+       <CAlert
+      color="danger"
+      :show.sync="currentAlertCounter"
+      closeButton
+    >
+      Случилась ошибка.
+      </CAlert>
       <CRow class="justify-content-center">
         <CCol md="8">
           <CCardGroup>
@@ -69,9 +76,12 @@
 <script>
 import storageUser from './storageUser'
 import axios from "axios"
+import Alert from '../alert/alert.vue'
 import {mapActions, mapGetters, mapMutations} from 'vuex'
 import postData from '../../utils/postData'
+import alert from '../alert/alert.vue'
 export default {
+  components: { alert },
   name: 'Login',
   data: function() {
     return{
@@ -85,22 +95,29 @@ export default {
         failed: "Failed!"
       },
       msg: "",
-      show: false
+      show: false,
+      alert: false,
+      currentAlertCounter: 0
     }
   },
   computed: {
-    ...mapGetters('users',['getUserInfo', 'isAuth'])
+    ...mapGetters('users',['getUserInfo', 'isAuth', 'getError'])
   },
   methods: {
     ...mapActions('users', ['login']),
     ...mapMutations('users',['setUserInfo']),
 
     submit(){
+      
       const formData = JSON.stringify(this.user);
       this.login(formData)
         .then(() => { 
           this.$router.push({ path: '/dashboard' }) 
-        })      
+        })   
+        .catch(() =>{
+          this.currentAlertCounter = 5;  
+        })  
+        
       }
   }
 }
