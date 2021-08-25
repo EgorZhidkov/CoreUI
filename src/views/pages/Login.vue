@@ -94,44 +94,14 @@ export default {
   methods: {
     ...mapActions('users', ['login']),
     ...mapMutations('users',['setUserInfo']),
+
     submit(){
       const formData = JSON.stringify(this.user);
-      // console.log(formData)
-      // const {inputUsername, inputPassword} = this.user;
-      // let loggIN = false;
-      // this.show = !this.show;
-      console.log(formData)
-      this.login(formData);
-      // postData('http://172.16.0.30:8031/api/v1/auth/sign-in', formData)
-      //   .then(res => {
-      //     console.log('res', res.data)
-      //   })
-      
-      // axios.post('http://localhost:8080/api/v1/auth/sign-in', formData)
-      //   .then(response => {
-      //     console.log(response.data);
-      //   })
-      //   .catch((error) => {
-      //     console.log(error)
-      //     alert('asd')
-      //   })
-        
-      // storageUser.map((oneUserInfo) => {
-      //   const {username, password} = oneUserInfo;
-      //   if(inputUsername === username && inputPassword === password){
-      //     loggIN = true;
-      //     console.log('storuser', oneUserInfo);
-      //     this.setUserInfo(oneUserInfo);
-      //   }
-      // });
-
-      // if(loggIN){
-      //   this.msg = this.message.success;
-      //   this.$router.push({path: '/dashboard'})
-      // }else{
-      //   this.msg = this.message.failed;
-      // }
-    }
+      this.login(formData)
+        .then(() => { 
+          this.$router.push({ path: '/dashboard' }) 
+        })      
+      }
   }
 }
 </script>

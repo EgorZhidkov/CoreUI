@@ -1,6 +1,5 @@
 export const getters = {
     getUserInfo(state) {
-
         return state
     },
     isAuth(state) {
@@ -8,13 +7,23 @@ export const getters = {
     },
     getAdminRole(state) {
         let bool = false;
-        state.user.roles.forEach(item => {
-            console.log(item);
-            if (item === "admin") {
-                bool = true;
+        try {
+            state.user.roles.forEach(item => {
+                console.log(item);
+                if (item === "admin") {
+                    bool = true;
+                }
+            });
+            return bool;
+        } catch (e) {
+            if (state.user.roles === "admin") {
+                return true
+            } else {
+                return false
             }
-        });
-        return bool;
+        }
+
+
     }
 }
 export default getters;

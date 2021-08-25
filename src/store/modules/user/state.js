@@ -2,7 +2,7 @@ const state = {
     user: {
         full_name: '',
         email: '',
-        roles: '',
+        roles: {},
         id: ''
     },
     access_token: '',
