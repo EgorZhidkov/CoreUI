@@ -4,7 +4,6 @@ import axios from 'axios'
 import jwt_decode from "jwt-decode";
 import Router from 'vue-router'
 
-
 const login = async({ commit }, payload) => {
     await API.post("/auth/sign-in", payload)
         .then((response) => {

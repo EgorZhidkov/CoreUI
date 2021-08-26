@@ -101,6 +101,8 @@ const Users = () =>
     import ('@/views/users/Users')
 const User = () =>
     import ('@/views/users/User')
+const AddUser = () =>
+    import ('@/views/users/AddUser')
 
 Vue.use(Router)
 
@@ -188,6 +190,14 @@ function configRoutes() {
                             },
                             name: 'User',
                             component: User
+                        },
+                        {
+                            path: '/AddUser',
+                            meta: {
+                                label: 'Users'
+                            },
+                            name: 'AddUser',
+                            component: AddUser
                         }
                     ]
                 },
