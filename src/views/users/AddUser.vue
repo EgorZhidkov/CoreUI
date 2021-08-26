@@ -12,11 +12,13 @@
                 label="Name"
                 horizontal
                 autocomplete="name"
+                v-model="newUser.full_name"
               />
               <CInput
                 label="Login"
                 placeholder="Username"
                 horizontal
+                v-model="newUser.login"
               />
               <CInput
                 label="Email"
@@ -24,6 +26,7 @@
                 type="email"
                 horizontal
                 autocomplete="email"
+                v-model="newUser.email"
               />
               
               <!-- <CSelect
@@ -53,16 +56,11 @@
                     />
                   </CCol>
                 </CRow>
-              
-               
-                    
-              
-                
-              
+
             </CForm>
           </CCardBody>
           <CCardFooter >
-            <CButton   color="primary" :pressed.sync="togglePress">Submit</CButton>
+            <CButton   color="primary" :pressed.sync="togglePress" @click="submit()">Submit</CButton>
             <CButton style="margin-left: 20px"  color="danger" :pressed.sync="togglePress">Reset</CButton>
           </CCardFooter>
         </CCard>
@@ -76,26 +74,32 @@ export default {
   name: 'AddUser',
   data () {
     return {
-      selected: [], // Must be an array reference!
-      show: true,
+      newUser: {
+        full_name: '',
+        login: '',
+        email: '',
+        role: ''
+      },
       horizontal: { label:'col-3', input:'col-9' },
-      options: ['Admin', 'User'],
-      selectOptions: [
-        'Admin', 'User',
-        { 
-          value: 'some value', 
-          label: 'Selected option'
+      options: [
+        {
+          value: 'admin', 
+          label: 'Admin'
+        }, 
+        {
+          value: 'user', 
+          label: 'User'
         }
       ],
-      selectedOption: 'some value',
       formCollapsed: true,
       togglePress: false,
     }
   },
   methods: {
-    // validator (val) {
-    //   return val ? val.length >= 4 : false
-    // },
+    submit(){
+      const formData = this.newUser;
+      console.log(formData)
+    },
     goBack() { // Возврат назад ко всем пользователям
       this.usersOpened ? this.$router.go(-1) : this.$router.push({path: '/users'})
     }
