@@ -26,27 +26,44 @@
                 autocomplete="email"
               />
               
-              <CSelect
+              <!-- <CSelect
                 label="Role"
                 horizontal
                 :options="options"
                 placeholder="Please select role"
-              />
+              /> -->
+
+              
+              <!-- <template v-for="(name, key) in checkboxNames"> -->
+                <CRow form class="form-group" :key="name">
+                  <CCol tag="label" sm="3" class="col-form-label">
+                    <!-- {{name}} -->
+                    Role
+                  </CCol>
+                  <CCol sm="9" :class="key % 2 === 1 ? 'form-inline' : ''">
+                    <CInputCheckbox
+                      v-for="(option, optionIndex) in options"
+                      :key="key + option"
+                      :label="option"
+                      :value="option"
+                      :custom="key > 1"
+                      :name="`Option 1${key}`"
+                      :checked="optionIndex === key"
+                      :inline="key % 2 === 1"
+                    />
+                  </CCol>
+                </CRow>
+              
+               
+                    
+              
+                
               
             </CForm>
           </CCardBody>
           <CCardFooter >
             <CButton   color="primary" :pressed.sync="togglePress">Submit</CButton>
             <CButton style="margin-left: 20px"  color="danger" :pressed.sync="togglePress">Reset</CButton>
-
-              <!-- <CRow>
-                <CCol >
-                    <CButton col="2" class="mb-3 mb-xl-0 text-center" variant="outline" color="primary" :pressed.sync="togglePress">Submit</CButton>
-                </CCol>
-                <CCol>
-                    <CButton col="2" class="mb-3 mb-xl-0 text-center" variant="outline" color="danger" :pressed.sync="togglePress">Reset</CButton>
-                </CCol>
-            </CRow> -->
           </CCardFooter>
         </CCard>
             <CButton block color="primary" @click="goBack">Back</CButton>

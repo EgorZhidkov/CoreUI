@@ -12,8 +12,8 @@ const login = async({ commit }, payload) => {
             let decode_jwt = jwt_decode(data.access_token)
             if (response.status === 201) {
                 commit('setIsAuth');
-                sessionStorage.setItem('access_token', data.access_token)
                 commit('setUserInfo', decode_jwt);
+                sessionStorage.setItem('access_token', data.access_token)
             }
         })
         .catch(() => {
