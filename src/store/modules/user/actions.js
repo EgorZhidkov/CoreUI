@@ -1,8 +1,9 @@
 import store from "../../store"
-import API from '../../../utils/axiosConfig'
+import { API } from '../../../utils/axiosConfig 2'
 import axios from 'axios'
 import jwt_decode from "jwt-decode";
 import Router from 'vue-router'
+
 
 const login = async({ commit }, payload) => {
     await API.post("/auth/sign-in", payload)
@@ -10,8 +11,8 @@ const login = async({ commit }, payload) => {
             let data = response.data;
             let decode_jwt = jwt_decode(data.access_token)
             if (response.status === 201) {
-                commit('setAccessToken', data.access_token);
                 commit('setIsAuth');
+                sessionStorage.setItem('access_token', data.access_token)
                 commit('setUserInfo', decode_jwt);
             }
         })

@@ -74,11 +74,8 @@
 </template>
 
 <script>
-import storageUser from './storageUser'
-import axios from "axios"
-import Alert from '../alert/alert.vue'
 import {mapActions, mapGetters, mapMutations} from 'vuex'
-import postData from '../../utils/postData'
+
 export default {
   components: { alert },
   name: 'Login',
@@ -88,14 +85,6 @@ export default {
         login: null,
         password: null,
       },
-      message: {
-        loading: "Loading...",
-        success: "Success",
-        failed: "Failed!"
-      },
-      msg: "",
-      show: false,
-      alert: false,
       currentAlertCounter: 0
     }
   },
@@ -107,7 +96,6 @@ export default {
     ...mapMutations('users',['setUserInfo']),
 
     submit(){
-      
       const formData = JSON.stringify(this.user);
       this.login(formData)
         .then(() => { 
@@ -116,7 +104,6 @@ export default {
         .catch(() =>{
           this.currentAlertCounter = 5;  
         })  
-        
       }
   }
 }
