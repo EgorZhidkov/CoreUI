@@ -170,9 +170,9 @@ function configRoutes() {
                 },
                 {
                     path: 'users',
-                    meta: {
-                        label: 'Users'
-                    },
+                    // meta: {
+                    //     label: 'Users'
+                    // },
                     component: {
                         render(c) {
                             return c('router-view')
@@ -184,6 +184,11 @@ function configRoutes() {
                             component: Users
                         },
                         {
+                            path: 'AddUser',
+                            name: 'AddUser',
+                            component: AddUser
+                        },
+                        {
                             path: ':id',
                             meta: {
                                 label: 'User Details'
@@ -191,14 +196,7 @@ function configRoutes() {
                             name: 'User',
                             component: User
                         },
-                        {
-                            path: '/AddUser',
-                            meta: {
-                                label: 'Users'
-                            },
-                            name: 'AddUser',
-                            component: AddUser
-                        }
+
                     ]
                 },
                 {

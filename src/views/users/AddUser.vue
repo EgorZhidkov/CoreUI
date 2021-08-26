@@ -6,18 +6,16 @@
           AddUser
         </CCardHeader>
         <CCardBody>
-          <CDataTable
-            striped
-            small
-            fixed
-            :items="visibleData"
-            :fields="fields"
-          />
         </CCardBody>
         <CCardFooter>
-          <CButton color="primary" @click="goBack">Back</CButton>
+          <CButton color="primary" >Back</CButton>
         </CCardFooter>
       </CCard>
     </CCol>
   </CRow>
 </template>
+<script>
+export default {
+  name: 'AddUser'
+}
+</script>

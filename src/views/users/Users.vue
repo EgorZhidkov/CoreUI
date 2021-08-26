@@ -44,7 +44,7 @@
         
       </CCard>
       <CCol col="6" sm="4" md="2" xl class="mb-3 mb-xl-0">
-            <CButton block color="primary" @click="addUser">Add user</CButton>
+            <CButton block color="primary" @click="addUser()">Add user</CButton>
           </CCol>
     </CCol>
   </CRow>
@@ -94,7 +94,7 @@ export default {
       this.$router.push({ query: { page: val }})
     },
     addUser(index) {
-      this.$router.push({path: `users/AddUser`})
+      this.$router.push({path: `users/AddUser`, exact: true})
       console.log('this.$router', this.$router)
     }
   }
