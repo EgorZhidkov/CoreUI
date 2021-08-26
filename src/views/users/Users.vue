@@ -1,9 +1,9 @@
 <template>
   <CRow>
-    <CCol col="12" xl="8">
+    <CCol col="14" xl="10">
       <CCard>
         <CCardHeader>
-          Users
+          User
         </CCardHeader>
         <CCardBody>
           <!-- 
@@ -88,7 +88,7 @@ export default {
     },
     rowClicked (item, index) { // Переход на опредленного пользователя по клику на строку
       this.$router.push({path: `users/${index + 1}`})
-      console.log('this.$router', this.$router)
+      console.log('this.$router', index)
     },
     pageChange (val) { // Смена страницы 
       this.$router.push({ query: { page: val }})
