@@ -40,11 +40,6 @@
                       <CButton color="link" class="d-lg-none">Register now!</CButton>
                     </CCol>
                   </CRow>
-                  <CRow style="justify-content: center;">
-                    <transition name="fade">
-                      <p v-if="show" style="text-align: center;">{{msg}}</p>
-                    </transition>
-                  </CRow>
                 </CForm>
               </CCardBody>
             </CCard>

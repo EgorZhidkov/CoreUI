@@ -1,6 +1,13 @@
 <template>
-   <CRow>
-      <CCol md="6">
+  <CRow>
+    <CCol md="12">
+     <CAlert
+      :color="color"
+      closeButton
+      :show.sync="currentAlertCounter"
+    >
+      {{message}}
+      </CAlert>
         <CCard>
           <CCardHeader>
             <strong>Add User</strong> 
@@ -28,35 +35,25 @@
                 autocomplete="email"
                 v-model="newUser.email"
               />
-              
-              <!-- <CSelect
-                label="Role"
-                horizontal
-                :options="options"
-                placeholder="Please select role"
-              /> -->
-
-              
-              <!-- <template v-for="(name, key) in checkboxNames"> -->
-                <CRow form class="form-group" :key="name">
+                <CRow form class="form-group">
                   <CCol tag="label" sm="3" class="col-form-label">
-                    <!-- {{name}} -->
                     Role
                   </CCol>
-                  <CCol sm="9" :class="key % 2 === 1 ? 'form-inline' : ''">
-                    <CInputCheckbox
+                  <CCol sm="9" >
+                    <!-- <CInputCheckbox
                       v-for="(option, optionIndex) in options"
-                      :key="key + option"
-                      :label="option"
-                      :value="option"
-                      :custom="key > 1"
-                      :name="`Option 1${key}`"
-                      :checked="optionIndex === key"
-                      :inline="key % 2 === 1"
-                    />
+                      :key="optionIndex"
+                      :checked="true"
+                      :label="options[optionIndex].label"
+                      :value="options[optionIndex].value"
+                    >
+                    </CInputCheckbox> -->
+                    <input type="checkbox" id="admin" value="64390598-8bbb-4354-8551-f475f1f4cee8" v-model="newUser.roles">
+                    <label for="admin">Admin</label>
+                    <input type="checkbox" id="user" value="ec361f3d-c7e0-4a52-a90e-4ecee7d56c1b" v-model="newUser.roles">
+                    <label for="user">User</label>
                   </CCol>
                 </CRow>
-
             </CForm>
           </CCardBody>
           <CCardFooter >
@@ -66,19 +63,20 @@
         </CCard>
             <CButton block color="primary" @click="goBack">Back</CButton>
       </CCol>
-      
     </CRow>
 </template>
 <script>
+import {API_WITH_HEADER} from '../../utils/axiosConfig 2'
+
 export default {
   name: 'AddUser',
   data () {
     return {
       newUser: {
+        email: '',
         full_name: '',
         login: '',
-        email: '',
-        role: ''
+        roles: []
       },
       horizontal: { label:'col-3', input:'col-9' },
       options: [
@@ -93,12 +91,40 @@ export default {
       ],
       formCollapsed: true,
       togglePress: false,
+      color: "",
+      message: "",
+      currentAlertCounter: 0
+
     }
   },
   methods: {
-    submit(){
-      const formData = this.newUser;
+    clearInputs(){
+      const user = this.newUser
+      user.email = '';
+      user.full_name = '';
+      user.login = '';
+      user.roles = [];
+    },
+     submit(){
+      let formData = JSON.stringify(this.newUser);
       console.log(formData)
+       API_WITH_HEADER.post("/admin/user/create", formData)
+        .then((response) => {
+          if(response.data.has_error == false){
+            this.color = "success"
+            this.message = "Создание пользователя прошло успешно"
+            this.currentAlertCounter = 5;
+            this.clearInputs();
+            }
+        })
+        .catch(err => {
+          let error = err.response.data
+          this.color = "danger"
+          this.message = error.error_text
+          this.currentAlertCounter = 5;
+        })
+        
+      
     },
     goBack() { // Возврат назад ко всем пользователям
       this.usersOpened ? this.$router.go(-1) : this.$router.push({path: '/users'})
