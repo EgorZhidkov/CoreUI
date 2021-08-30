@@ -46,10 +46,11 @@
                       :checked="true"
                       :label="options[optionIndex].label"
                       :value="options[optionIndex].value"
+                      v-model="newUser.roles"
                     >
                     </CInputCheckbox> -->
                     <input type="checkbox" id="admin" value="64390598-8bbb-4354-8551-f475f1f4cee8" v-model="newUser.roles">
-                    <label for="admin">Admin</label>
+                    <label for="admin">Admin</label><br />
                     <input type="checkbox" id="user" value="ec361f3d-c7e0-4a52-a90e-4ecee7d56c1b" v-model="newUser.roles">
                     <label for="user">User</label>
                   </CCol>
